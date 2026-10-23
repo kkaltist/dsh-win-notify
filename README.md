@@ -73,9 +73,13 @@ DSH 在后台干活时，人不一定盯着浏览器标签。这个插件把「�
 **给别人的安装说明**（Windows 10/11 + DSH 0.2.x）：
 
 ```powershell
-# 1. 把这个包放进 DSH 的 profile（web profile 就是浏览器版用的那个）
+# 0. 拿代码（仓库：https://github.com/kkaltist/dsh-win-notify）
+git clone https://github.com/kkaltist/dsh-win-notify
+#    或者直接用 Releases 里打好的 tgz
+
+# 1. 装进 DSH 的 profile（web profile 就是浏览器版用的那个）
 dsh plugin add C:\path\to\dsh-win-notify-0.2.0.tgz --profile web
-#    或者直接指目录（开发/本地副本）
+#    指向克隆下来的目录也可以（开发/本地副本）
 #    dsh plugin add link:C:\path\to\dsh-win-notify --profile web
 
 # 2. 让 profile 启用它：编辑 ~\.dsh\profiles\web\package.json
@@ -127,9 +131,12 @@ dsh plugin remove dsh-win-notify --profile web
 
 | 文件 | 用途 |
 |---|---|
-| `dsh-win-notify-0.2.0.tgz` | 给 `dsh plugin add` 用（16 个文件，24.7 kB） |
-| `dsh-win-notify-0.2.0.zip` | 解压即用，额外带 `scripts/`（19 个文件），方便对方自己跑冒烟 |
+| `dsh-win-notify-0.2.0.tgz` | 给 `dsh plugin add` 用（17 个文件，25.5 kB） |
+| `dsh-win-notify-0.2.0.zip` | 解压即用，额外带 `scripts/`（20 个文件），方便对方自己跑冒烟 |
 | `SHA256SUMS.txt` | 两份产物的 sha256 |
+
+这两份产物**不进 git**（见 `.gitignore`）。发版靠 tag：推一个 `vX.Y.Z`，
+`.github/workflows/release.yml` 会 `npm pack` 并把 tgz 挂到 Releases 上。
 
 重新打包：
 

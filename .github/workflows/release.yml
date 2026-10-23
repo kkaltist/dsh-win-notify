@@ -1,0 +1,30 @@
+name: release
+
+# 打 tag（v*）就出一个 Release，把 npm 打好的 tgz 挂上去。
+# 这样别人不用自己打包：Releases 里直接下。
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  pack:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # 包体只有纯 JS 与 PowerShell，没有构建步骤，直接打包
+      - name: Pack tarball
+        run: npm pack --pack-destination dist
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create ${{ github.ref_name }} dist/*.tgz --title "${{ github.ref_name }}" --generate-notes
