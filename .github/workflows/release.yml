@@ -35,6 +35,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # 同一个 tag 被重打过（比如重写作者、重新打 tag）时，Release 已经存在：
+          # 这时不是失败，而是把附件覆盖上传。
           gh release create "${GITHUB_REF_NAME}" dist/*.tgz \
             --title "DSH 桌面通知 ${GITHUB_REF_NAME}" \
-            --generate-notes
+            --generate-notes \
+          || gh release upload "${GITHUB_REF_NAME}" dist/*.tgz --clobber
