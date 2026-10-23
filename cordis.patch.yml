@@ -1,0 +1,18 @@
+# dsh-win-notify bundle patch。
+#
+# 只写「跟默认值不同」的项；其余全部在设置页里改（设置 → 插件 → DSH 桌面通知），
+# 那份表单由 index.js 导出的 Config 生成，改完直接写回本 profile。
+- insert:
+    - id: win-notify
+      name: 'dsh-win-notify'
+      config:
+        onTurnEnd: true
+        onApproval: true
+        onQuestion: true
+        interactive: true
+        sounds:
+          turnEnd: 'default'
+          approval: 'exclamation'
+          question: 'exclamation'
+        aumid: 'DeepSeek.Harness'
+        appName: 'DeepSeek Harness'

@@ -1,0 +1,14 @@
+# 依赖与产物不进仓库
+node_modules/
+dist/
+
+# 打包中间物
+*.tgz
+*.zip
+*.log
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

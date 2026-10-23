@@ -1,0 +1,10 @@
+# 统一换行：脚本一律 CRLF（PowerShell 解析更稳），其余按文本自动处理
+* text=auto
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
