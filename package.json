@@ -2,7 +2,7 @@
   "name": "dsh-win-notify",
   "version": "0.2.0",
   "type": "module",
-  "description": "DSH 桌面通知：任务完成 / 需要授权 / 模型提问时弹 Windows 通知，通知上直接回复或选是否，点空白处跳回 DSH。",
+  "description": "DSH 桌面通知：任务完成 / 需要授权 / 模型提问时弹 Windows 通知，通知上直接回复或选是否，点正文切回已打开的 DSH 页面。",
   "displayName": "DSH 桌面通知",
   "main": "./index.js",
   "exports": {
