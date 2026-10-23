@@ -2,6 +2,11 @@ name: release
 
 # 打 tag（v*）就出一个 Release，把 npm 打好的 tgz 挂上去。
 # 这样别人不用自己打包：Releases 里直接下。
+#
+# 注意两点（上一版就是栽在这儿）：
+#   1. npm pack --pack-destination 不会自己建目录，得先 mkdir；
+#   2. 别用 windows-latest + PowerShell —— 通配符 `dist/*.tgz` 不会被展开。
+# 包体是纯文本（JS + PowerShell 脚本），在 Linux 上打出来一模一样。
 on:
   push:
     tags:
@@ -12,7 +17,7 @@ permissions:
 
 jobs:
   pack:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -20,11 +25,16 @@ jobs:
         with:
           node-version: 22
 
-      # 包体只有纯 JS 与 PowerShell，没有构建步骤，直接打包
       - name: Pack tarball
-        run: npm pack --pack-destination dist
+        run: |
+          mkdir -p dist
+          npm pack --pack-destination dist
+          ls -l dist
 
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create ${{ github.ref_name }} dist/*.tgz --title "${{ github.ref_name }}" --generate-notes
+        run: |
+          gh release create "${GITHUB_REF_NAME}" dist/*.tgz \
+            --title "DSH 桌面通知 ${GITHUB_REF_NAME}" \
+            --generate-notes
